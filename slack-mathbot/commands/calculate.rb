@@ -35,16 +35,16 @@ module SlackMathbot
           f.write(newbuddies.to_json)
         end
 
-        couple1 = ":small_blue_diamond: " + buddies[0] + " and " + buddies[1]
-        couple2 = ":small_blue_diamond: " + buddies[2] + " and " + buddies[3]
-        couple3 = ":small_blue_diamond: " + buddies[2] + " and " + buddies[4]
+        couple1 = ":point_right: " + buddies[0] + " and " + buddies[1]
+        couple2 = ":point_right: " + buddies[2] + " and " + buddies[3]
+        couple3 = ":point_right: " + buddies[2] + " and " + buddies[4]
         client.say(channel: data.channel, text: "We are the pairing dancers!")
         client.say(channel: data.channel, text: "This week\'s buddies:")
         client.say(channel: data.channel, text: couple1)
         client.say(channel: data.channel, text: couple2)
         client.say(channel: data.channel, text: couple3)
         client.say(channel: data.channel, text: "Remember: 5 to 10 min a day")
-        client.say(channel: data.channel, text: ":dancers: *Let\'s dance!* :dancers:")
+        client.say(channel: data.channel, text: "*Let\'s dance!* :dancers:")
       end
     end
   end
