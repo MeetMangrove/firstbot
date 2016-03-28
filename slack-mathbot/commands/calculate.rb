@@ -1,4 +1,5 @@
 require 'json'
+require 'picky'
 
 module SlackMathbot
   module Commands
@@ -45,6 +46,17 @@ module SlackMathbot
         client.say(channel: data.channel, text: couple3)
         client.say(channel: data.channel, text: "Remember: 5 to 10 min a day")
         client.say(channel: data.channel, text: "*Let\'s dance!* :dancers:")
+      end
+
+      command 'reminder' do |client, data, _match|
+        db = File.read('buddies.json')
+        buddies = JSON.parse(db)
+        client.say(channel: '#general', text: "Just testing some dance moves!")
+        client.say(channel: data.channel, text: "hey hey")
+
+        newclient = Slack::Web::Client.new
+        max = newclient.users_info(user: '@max')
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: max.user.id, text: "it worked!",  as_user: true)
       end
     end
   end

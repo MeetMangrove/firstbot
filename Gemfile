@@ -5,6 +5,7 @@ gem 'puma'
 gem 'sinatra'
 gem 'dotenv'
 gem 'json'
+gem 'picky'
 
 group :development, :test do
   gem 'rake'
