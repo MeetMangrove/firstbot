@@ -6,12 +6,16 @@ module SlackMathbot
     class Calculate < SlackRubyBot::Commands::Base
 
       command 'buddies' do |client, data, _match|
-        mangrovers = ["adrien", "max", "olivier", "yannis", "matthieu"]
 
-        db = File.read('buddies.json')
-        oldbuddies = JSON.parse(db)
+        # get mangrovers and previous buddies
+        mangroversdb = File.read('mangrovers.json')
+        mangrovers = JSON.parse(mangroversdb)["mangrovers"]
+
+        buddiesdb = File.read('buddies.json')
+        oldbuddies = JSON.parse(buddiesdb)
         notrandom = true
 
+        # tirage au sort
         while notrandom
           buddies = mangrovers.shuffle
           newbuddies = {
@@ -31,32 +35,45 @@ module SlackMathbot
           notrandom = true if notunique
         end
 
-
+        # update DB
         File.open("buddies.json","w") do |f|
           f.write(newbuddies.to_json)
         end
 
+        # give new buddies on #general
+        newclient = Slack::Web::Client.new
+
         couple1 = ":point_right: " + buddies[0] + " and " + buddies[1]
         couple2 = ":point_right: " + buddies[2] + " and " + buddies[3]
         couple3 = ":point_right: " + buddies[2] + " and " + buddies[4]
-        client.say(channel: data.channel, text: "We are the pairing dancers!")
-        client.say(channel: data.channel, text: "This week\'s buddies:")
-        client.say(channel: data.channel, text: couple1)
-        client.say(channel: data.channel, text: couple2)
-        client.say(channel: data.channel, text: couple3)
-        client.say(channel: data.channel, text: "Remember: 5 to 10 min a day")
-        client.say(channel: data.channel, text: "*Let\'s dance!* :dancers:")
+
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#general", text: "We are the pairing dancers!",  as_user: true)
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#general", text: "And this week\'s buddies are...",  as_user: true)
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#general", text: couple1,  as_user: true)
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#general", text: couple2,  as_user: true)
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#general", text: couple3,  as_user: true)
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#general", text: "Remember: 5 to 10 min a day",  as_user: true)
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#general", text: "*Let\'s dance!* :dancers:",  as_user: true)
       end
 
       command 'reminder' do |client, data, _match|
-        db = File.read('buddies.json')
-        buddies = JSON.parse(db)
-        client.say(channel: '#general', text: "Just testing some dance moves!")
-        client.say(channel: data.channel, text: "hey hey")
+        # get buddies
+        buddiesdb = File.read('buddies.json')
+        buddies = JSON.parse(buddiesdb)
+
+        client.say(channel: '#general', text: "Reminder ready")
 
         newclient = Slack::Web::Client.new
-        max = newclient.users_info(user: '@max')
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: max.user.id, text: "it worked!",  as_user: true)
+
+        buddies.each do |couple, arrayofbud|
+          bud1 = arrayofbud[0]
+          bud2 = arrayofbud[1]
+          bud1info = newclient.users_info(user: '@' + bud1)
+          newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: bud1info.user.id, text: "Wooow! Don\'t forget to call " + bud2 + " today. Keep on dancing! :dancers:",  as_user: true)
+          bud2info = newclient.users_info(user: '@' + bud2)
+          newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: bud2info.user.id, text: "Wooow! Don\'t forget to call " + bud1 + " today. Keep on dancing! :dancers:",  as_user: true)
+        end
+
       end
     end
   end
