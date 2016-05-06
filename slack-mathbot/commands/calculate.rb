@@ -37,17 +37,19 @@ module SlackMathbot
 
         # TESTS BEFORE updating DB
 
+        newclient = Slack::Web::Client.new
         newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "old buddies",  as_user: true)
         newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: oldbuddies,  as_user: true)
         newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "new buddies",  as_user: true)
         newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: newbuddies,  as_user: true)
+
         # update DB
         File.open("buddies.json","w") do |f|
           f.write(newbuddies.to_json)
         end
 
         # give new buddies on #general
-        newclient = Slack::Web::Client.new
+        # newclient = Slack::Web::Client.new
 
         couple1 = ":point_right: " + buddies[0] + " and " + buddies[1]
         couple2 = ":point_right: " + buddies[2] + " and " + buddies[3]
