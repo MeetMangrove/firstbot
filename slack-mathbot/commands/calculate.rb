@@ -47,13 +47,13 @@ module SlackMathbot
         couple2 = ":point_right: " + buddies[2] + " and " + buddies[3]
         couple3 = ":point_right: " + buddies[2] + " and " + buddies[4]
 
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#general", text: "We are the pairing dancers!",  as_user: true)
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#general", text: "And this week\'s buddies are...",  as_user: true)
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#general", text: couple1,  as_user: true)
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#general", text: couple2,  as_user: true)
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#general", text: couple3,  as_user: true)
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#general", text: "Remember: 5 to 10 min a day",  as_user: true)
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#general", text: "*Let\'s dance!* :dancers:",  as_user: true)
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "We are the pairing dancers!",  as_user: true)
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "And this week\'s buddies are...",  as_user: true)
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: couple1,  as_user: true)
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: couple2,  as_user: true)
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: couple3,  as_user: true)
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Remember: 5 to 10 min a day",  as_user: true)
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "*Let\'s dance!* :dancers:",  as_user: true)
       end
 
       command 'reminder' do |client, data, _match|
@@ -61,7 +61,7 @@ module SlackMathbot
         buddiesdb = File.read('buddies.json')
         buddies = JSON.parse(buddiesdb)
 
-        client.say(channel: '#general', text: "Reminder ready")
+        client.say(channel: '#botspam', text: "Reminder ready")
 
         newclient = Slack::Web::Client.new
 
