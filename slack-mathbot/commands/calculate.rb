@@ -35,6 +35,12 @@ module SlackMathbot
           notrandom = true if notunique
         end
 
+        # TESTS BEFORE updating DB
+
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "old buddies",  as_user: true)
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: oldbuddies,  as_user: true)
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "new buddies",  as_user: true)
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: newbuddies,  as_user: true)
         # update DB
         File.open("buddies.json","w") do |f|
           f.write(newbuddies.to_json)
@@ -47,13 +53,13 @@ module SlackMathbot
         couple2 = ":point_right: " + buddies[2] + " and " + buddies[3]
         couple3 = ":point_right: " + buddies[2] + " and " + buddies[4]
 
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "We are the pairing dancers!",  as_user: true)
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "And this week\'s buddies are...",  as_user: true)
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: couple1,  as_user: true)
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: couple2,  as_user: true)
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: couple3,  as_user: true)
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Remember: 5 to 10 min a day",  as_user: true)
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "*Let\'s dance!* :dancers:",  as_user: true)
+        # newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "We are the pairing dancers!",  as_user: true)
+        # newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "And this week\'s buddies are...",  as_user: true)
+        # newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: couple1,  as_user: true)
+        # newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: couple2,  as_user: true)
+        # newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: couple3,  as_user: true)
+        # newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Remember: 5 to 10 min a day",  as_user: true)
+        # newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "*Let\'s dance!* :dancers:",  as_user: true)
       end
 
       command 'reminder' do |client, data, _match|
