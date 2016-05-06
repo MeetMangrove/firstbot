@@ -37,6 +37,11 @@ module SlackMathbot
 
         # TESTS BEFORE updating DB
 
+        p "============ OLD BUDDIES ============"
+        p oldbuddies
+        p "============= NEW BUDDIES ==========="
+        p newbuddies
+
         newclient = Slack::Web::Client.new
         newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "old buddies",  as_user: true)
         newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: oldbuddies,  as_user: true)
