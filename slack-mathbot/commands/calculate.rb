@@ -42,16 +42,15 @@ module SlackMathbot
         p "============= NEW BUDDIES ==========="
         p newbuddies
 
-        newclient = Slack::Web::Client.new
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "old buddies",  as_user: true)
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: oldbuddies,  as_user: true)
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "new buddies",  as_user: true)
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: newbuddies,  as_user: true)
-
         # update DB
         File.open("buddies.json","w") do |f|
           f.write(newbuddies.to_json)
         end
+
+        p "============= NEW BUDDIES IN JSON FILE ==========="
+        newbuddiesjsondb = File.read('buddies.json')
+        newbuddiesjson = JSON.parse(newbuddiesjsondb)
+        p newbuddiesjson
 
         # give new buddies on #general
         # newclient = Slack::Web::Client.new
