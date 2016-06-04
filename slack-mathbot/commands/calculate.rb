@@ -89,7 +89,7 @@ module SlackMathbot
         newclient = Slack::Web::Client.new
 
         buddies.each do |buddy|
-          remindertext1 = "Remember to call your buddy"
+          remindertext1 = "Remember to call your buddy "
           remindertext2 = " today. :dancers: "
           newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[0], text: remindertext1 + newclient.users_info(user: buddy[1]).user.name + remindertext2,  as_user: true)
           newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[1], text: remindertext1 + newclient.users_info(user: buddy[0]).user.name  + remindertext2,  as_user: true)
