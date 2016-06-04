@@ -10,8 +10,6 @@ module SlackMathbot
   module Commands
     class Calculate < SlackRubyBot::Commands::Base
 
-      newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "And without a webhook @yannis!",  as_user: true)
-
       command 'buddies' do |client, data, _match|
 
         clientyannis = Mongo::Client.new('mongodb://heroku_9lfp2dtb:5ri9s2lgba2om7t6hl2v3uhp01@ds033734.mlab.com:33734/heroku_9lfp2dtb')
