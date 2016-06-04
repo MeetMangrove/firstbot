@@ -74,12 +74,12 @@ module SlackMathbot
         announce = ""
 
         newbuddies.each do |couple|
-          announce += ":point_right: " + couple[0] + " and " + couple[1] + "\n"
+          announce += ":point_right: " + client.users_info(user: couple[0]).user.name + " and " + client.users_info(user: couple[1]).user.name + "\n"
         end
 
 
         newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: announce,  as_user: true)
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "These guys have strange names ahaha",  as_user: true)
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "It\'s working guys!",  as_user: true)
 
 
 
