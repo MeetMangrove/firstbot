@@ -74,7 +74,7 @@ module SlackMathbot
         announce = ""
 
         newbuddies.each do |couple|
-          announce += ":point_right: " + client.users_info(user: couple[0]).user.name + " and " + client.users_info(user: couple[1]).user.name + "\n"
+          announce += ":point_right: " + newclient.users_info(user: couple[0]).user.name + " and " + newclient.users_info(user: couple[1]).user.name + "\n"
         end
 
 
