@@ -86,6 +86,8 @@ module SlackMathbot
         pairingdb = database.collection('pairing')
         buddies = pairingdb.find.first[:thisweek]
 
+        newclient = Slack::Web::Client.new
+
         buddies.each do |buddy|
           remindertext1 = "Remember to call your buddy"
           remindertext2 = " today. :dancers: "
