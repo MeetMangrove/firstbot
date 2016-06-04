@@ -70,13 +70,19 @@ module SlackMathbot
 
         newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "We are the pairing dancers!",  as_user: true)
         newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "And this week\'s buddies are...",  as_user: true)
-        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "nothing ahahahaa",  as_user: true)
 
         announce = ""
 
         newbuddies.each do |couple|
           announce += ":point_right: " + couple[0] + " and " + couple[1] + "\n"
         end
+
+
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: announce,  as_user: true)
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "These guys have strange names ahaha",  as_user: true)
+
+
+
       end
 
       command 'reminder' do |client, data, _match|

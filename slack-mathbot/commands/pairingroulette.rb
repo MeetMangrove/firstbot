@@ -59,7 +59,6 @@ require 'mongo'
 
   newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "We are the pairing dancers!",  as_user: true)
   newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "And this week\'s buddies are...",  as_user: true)
-  newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "nothing ahahahaa",  as_user: true)
 
   announce = ""
 
@@ -68,4 +67,6 @@ require 'mongo'
   end
 
 
+  newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: announce,  as_user: true)
+  newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "These guys have strange names ahaha",  as_user: true)
 
