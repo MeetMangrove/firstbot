@@ -8,6 +8,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    bson (4.1.1)
     diff-lcs (1.2.5)
     dotenv (2.1.0)
     eventmachine (1.2.0.1)
@@ -36,6 +37,8 @@ GEM
     launchy (2.4.3)
       addressable (~> 2.3)
     minitest (5.8.4)
+    mongo (2.2.5)
+      bson (~> 4.0)
     multi_json (1.11.2)
     multipart-post (2.0.0)
     oj (2.14.6)
@@ -100,6 +103,7 @@ DEPENDENCIES
   dotenv
   foreman
   json
+  mongo (~> 2.1)
   picky
   puma
   rack-test

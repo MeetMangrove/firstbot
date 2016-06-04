@@ -6,6 +6,7 @@ gem 'sinatra'
 gem 'dotenv'
 gem 'json'
 gem 'picky'
+gem 'mongo', '~> 2.1'
 
 group :development, :test do
   gem 'rake'
