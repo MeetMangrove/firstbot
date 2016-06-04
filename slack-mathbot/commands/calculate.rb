@@ -16,8 +16,6 @@ module SlackMathbot
         database = clientyannis.database
         users = database.collection('users')
         mangrovers = users.find.distinct(:id)
-        # mangrovers = ["adrien", "max", "olivier", "yannis", "matthieu"]
-        p mangrovers
 
         hastoredo = true
         while hastoredo do
@@ -77,17 +75,23 @@ module SlackMathbot
           announce += ":point_right: " + newclient.users_info(user: couple[0]).user.name + " and " + newclient.users_info(user: couple[1]).user.name + "\n"
         end
 
-
         newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: announce,  as_user: true)
         newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "It\'s working guys!",  as_user: true)
-
-
-
       end
 
       command 'reminder' do |client, data, _match|
         # get buddies
+        clientyannis = Mongo::Client.new('mongodb://heroku_9lfp2dtb:5ri9s2lgba2om7t6hl2v3uhp01@ds033734.mlab.com:33734/heroku_9lfp2dtb')
+        database = clientyannis.database
+        pairingdb = database.collection('pairing')
+        buddies = pairingdb.find.first[:thisweek]
 
+        buddies.each do |buddy|
+          remindertext1 = "Remember to call your buddy"
+          remindertext2 = " today. :dancers: "
+          newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[0], text: remindertext1 + newclient.users_info(user: buddy[1]).user.name + remindertext2,  as_user: true)
+          newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[1], text: remindertext1 + newclient.users_info(user: buddy[0]).user.name  + remindertext2,  as_user: true)
+        end
       end
     end
   end
