@@ -111,3 +111,4 @@ DEPENDENCIES
   rspec
   sinatra
   slack-ruby-bot
+  slack-ruby-client
