@@ -1,6 +1,7 @@
 require 'mongo'
 require 'slack-ruby-client'
 require 'dotenv'
+require 'json'
 Dotenv.load
 
 def pairingroulette
@@ -60,13 +61,18 @@ def pairingroulette
 
   # post new buddies to slack
 
+  # get messages
+  file = File.read('pairingmessages.json')
+  pairingmessages = JSON.parse(file)
+
+
   newclient = Slack::Web::Client.new
   p newclient
   newclient.auth_test
 
 
-  newclient.chat_postMessage(token: nil, channel: "#general", text: "We are the pairing dancers!",  as_user: true)
-  newclient.chat_postMessage(token: nil, channel: "#general", text: "And this week\'s buddies are...",  as_user: true)
+  newclient.chat_postMessage(token: nil, channel: "#botspam", text: pairingmessages["hello"].sample,  as_user: true)
+  newclient.chat_postMessage(token: nil, channel: "#botspam", text: "And this week\'s buddies are...",  as_user: true)
 
   announce = ""
 
@@ -74,8 +80,8 @@ def pairingroulette
     announce += ":point_right: " + newclient.users_info(user: couple[0]).user.name + " and " + newclient.users_info(user: couple[1]).user.name + "\n"
   end
 
-  newclient.chat_postMessage(token: nil, channel: "#general", text: announce,  as_user: true)
-  newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#general", text: "It\'s the first fully automated pairing, woooo!",  as_user: true)
+  newclient.chat_postMessage(token: nil, channel: "#botspam", text: announce,  as_user: true)
+  newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "What a great pairing!",  as_user: true)
 end
 
 

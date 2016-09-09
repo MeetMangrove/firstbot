@@ -12,5 +12,7 @@ task :roulette do
 end
 
 task :reminder do
-  reminder
+  if Time.now.tuesday?
+    reminder
+  end
 end
