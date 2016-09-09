@@ -80,7 +80,7 @@ def pairingroulette
   end
 
   newclient.chat_postMessage(token: nil, channel: "#botspam", text: announce,  as_user: true)
-  newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "What a great pairing!",  as_user: true)
+  newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: pairingmessages["goodbye"].sample,  as_user: true)
 end
 
 
