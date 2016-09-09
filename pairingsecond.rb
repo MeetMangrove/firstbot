@@ -70,6 +70,8 @@ def pairingroulette
   p newclient
   newclient.auth_test
 
+  p "HELLO IM HERE ==========================================================="
+
 
   newclient.chat_postMessage(token: nil, channel: "#botspam", text: pairingmessages["hello"].sample,  as_user: true)
   newclient.chat_postMessage(token: nil, channel: "#botspam", text: "And this week\'s buddies are...",  as_user: true)
