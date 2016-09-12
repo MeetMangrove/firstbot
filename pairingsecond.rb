@@ -106,7 +106,7 @@ def reminder
 
   buddies.each do |buddy|
     if allbuddies.include? buddy[0]
-      newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Oh I almost forgot! Don\'t forget to call " + buddy[1] + " as well!" ,  as_user: true)
+      newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Oh I almost forgot! Don\'t forget to call " + newclient.users_info(user: buddy[1]).user.name + " as well!" ,  as_user: true)
     else
       allbuddies << buddy[0]
       newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Hi " + newclient.users_info(user: buddy[0]).user.name + "!",  as_user: true)
@@ -131,7 +131,7 @@ def reminder
 
   buddies.each do |buddy|
     if allbuddies.include? buddy[1]
-      newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Oh I almost forgot! Don\'t forget to call " + buddy[0] + " as well!" ,  as_user: true)
+      newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Oh I almost forgot! Don\'t forget to call " + newclient.users_info(user: buddy[0]).user.name + " as well!" ,  as_user: true)
     else
       allbuddies << buddy[1]
       newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Hi " + newclient.users_info(user: buddy[1]).user.name + "!",  as_user: true)
