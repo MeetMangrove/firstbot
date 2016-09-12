@@ -70,17 +70,17 @@ def pairingroulette
   p newclient
   newclient.auth_test
 
-  newclient.chat_postMessage(token: nil, channel: "#botspam", text: pairingmessages["hello"].sample,  as_user: true)
-  newclient.chat_postMessage(token: nil, channel: "#botspam", text: pairingmessages["announcement"].sample,  as_user: true)
+  newclient.chat_postMessage(token: nil, channel: "#general", text: pairingmessages["hello"].sample,  as_user: true)
+  newclient.chat_postMessage(token: nil, channel: "#general", text: pairingmessages["announcement"].sample,  as_user: true)
 
   announce = ""
 
   newbuddies.each do |couple|
-    announce += ":point_right: " + newclient.users_info(user: couple[0]).user.name + " and " + newclient.users_info(user: couple[1]).user.name + "\n"
+    announce += "> :point_right: " + newclient.users_info(user: couple[0]).user.name + " and " + newclient.users_info(user: couple[1]).user.name + "\n"
   end
 
-  newclient.chat_postMessage(token: nil, channel: "#botspam", text: announce,  as_user: true)
-  newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: pairingmessages["goodbye"].sample,  as_user: true)
+  newclient.chat_postMessage(token: nil, channel: "#general", text: announce,  as_user: true)
+  newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#general", text: pairingmessages["goodbye"].sample,  as_user: true)
 end
 
 
@@ -94,13 +94,26 @@ def reminder
   database = clientyannis.database
   pairingdb = database.collection('pairing')
   buddies = pairingdb.find.first[:thisweek]
+  # get mangrovers
+  users = database.collection('users')
+  # get messages
+  file = File.read('pairingmessages.json')
+  pairingmessages = JSON.parse(file)
 
   newclient = Slack::Web::Client.new
 
   buddies.each do |buddy|
-    remindertext1 = "Remember to call your buddy "
-    remindertext2 = " today. :dancers: "
-    newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[0], text: remindertext1 + newclient.users_info(user: buddy[1]).user.name + remindertext2,  as_user: true)
-    newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[1], text: remindertext1 + newclient.users_info(user: buddy[0]).user.name  + remindertext2,  as_user: true)
+    newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[0], text: "Hi " + newclient.users_info(user: buddy[0]).user.name,  as_user: true)
+    newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[0], text: "I hope you\'re having a great time",  as_user: true)
+    newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[0], text: "Just to tell you that your buddy this week is" + newclient.users_info(user: buddy[1]).user.name,  as_user: true)
+    newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[0], text: "Just to tell you that your buddy this week is" + newclient.users_info(user: buddy[1]).user.name,  as_user: true)
+
   end
+
+  # buddies.each do |buddy|
+  #   remindertext1 = "Remember to call your buddy "
+  #   remindertext2 = " today. :dancers: "
+  #   newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[0], text: remindertext1 + newclient.users_info(user: buddy[1]).user.name + remindertext2,  as_user: true)
+  #   newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[1], text: remindertext1 + newclient.users_info(user: buddy[0]).user.name  + remindertext2,  as_user: true)
+  # end
 end

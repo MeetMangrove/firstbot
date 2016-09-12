@@ -27,6 +27,7 @@
     ["How cool is that?",
     "POPOPO!",
     ":point_right: tom and jerry lol",
+    ":point_right: ham and cheese loul",
     "Zbleeeeee!",
     "Dab!",
     ":fire::fire::fire:",
@@ -40,5 +41,45 @@
     "Ciaoooo",
     "Be happy!",
     "Relax and enjoy! :cloud:"
-    ]
+    ],
+  "greetings":
+    ["We hope you\'re doing well",
+    "Good to see you",
+    "Remember us?",
+    "We hope you tried some new dance moves lately",
+    "Pairing is cool, isn't it?",
+    "We\'re on fire! :fire:",
+    "It\'s us! The dancers :grin:"
+    ],
+   "feelingbad":
+    ["I think this buddy is not feeling very well lately so please be gentle :no_mouth:",
+    "This buddy is having a hard time, so let\'s be supportive :fist::skin-tone-3:",
+    "I don\'t think this buddy is going super great, please be cool with him..."],
+    "feelinggreat":
+    ["From what I understood, this buddy has been having a great time lately!",
+    "This buddy is on fire! :fire",
+    "This buddy is shipping like hell! :rocket:",
+    "This buddy is doing great lately :simple_smile:"],
+    "besttimes":
+    ["Best times to call each other are Tuesday and Thursday night around 7PM if you\’re on the same timezone.",
+    "Try to call your buddy at least twice this week!",
+    "Pairing calls help to take a step back on your day",
+    "Pairing calls are great to know what\'s happening inside Mangrove",
+    "We like pairing! It\s so cool and sometimes surprising!",
+    "Take some time to settle this pairing with your buddy!"
+    ],
+    "goodbyepm":
+    ["Enjoy!",
+    "Have fun!",
+    "Arrivederci!",
+    "Au revoir",
+    "Ciaoooo",
+    "Be happy!",
+    "Relax and enjoy! :cloud:",
+    "Be cool!",
+    "We love you! :heart:",
+    "All you need is love :heart:",
+    "Wooooooo see you soon!",
+    "Peace :v:",
+    "Give it away, give it away now!"]
 }
