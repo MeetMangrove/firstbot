@@ -106,12 +106,13 @@ def reminder
 
   buddies.each do |buddy|
     if allbuddies.include? buddy[0]
-      newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Oh I almost forgot! Don\'t forget to call " + newclient.users_info(user: buddy[1]).user.name + " as well!" ,  as_user: true)
+      sleep(rand(60))
+      newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Oh I almost forgot! Don\'t forget to call " + newclient.users_info(user: buddy[1]).user.name + " as well! :smile_cat:" ,  as_user: true)
     else
       allbuddies << buddy[0]
       newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Hi " + newclient.users_info(user: buddy[0]).user.name + "!",  as_user: true)
       newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: pairingmessages["greetings"].sample,  as_user: true)
-      newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Just to tell you that your buddy this week is " + newclient.users_info(user: buddy[1]).user.name,  as_user: true)
+      newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Just to tell you that your buddy this week is " + newclient.users_info(user: buddy[1]).user.name + " :dancers:",  as_user: true)
       buddymood = users.find( { id: buddy[1] } ).first["feedback"].last["status"].to_i
       if buddymood < 4
         newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: pairingmessages["feelingbad"].sample,  as_user: true)
@@ -130,8 +131,9 @@ def reminder
   allbuddies = []
 
   buddies.each do |buddy|
-    if allbuddies.include? buddy[1]
-      newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Oh I almost forgot! Don\'t forget to call " + newclient.users_info(user: buddy[0]).user.name + " as well!" ,  as_user: true)
+    if allbuddies.include? buddy[0]
+      sleep(rand(60))
+      newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Oh I almost forgot! Don\'t forget to call " + newclient.users_info(user: buddy[0]).user.name + " as well! :smile_cat:" ,  as_user: true)
     else
       allbuddies << buddy[1]
       newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Hi " + newclient.users_info(user: buddy[1]).user.name + "!",  as_user: true)
