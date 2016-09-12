@@ -16,3 +16,9 @@ task :reminder do
     reminder
   end
 end
+
+task :surprise do
+  if Time.now.friday?
+    surprise
+  end
+end

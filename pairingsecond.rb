@@ -103,17 +103,46 @@ def reminder
   newclient = Slack::Web::Client.new
 
   buddies.each do |buddy|
-    newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[0], text: "Hi " + newclient.users_info(user: buddy[0]).user.name,  as_user: true)
-    newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[0], text: "I hope you\'re having a great time",  as_user: true)
-    newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[0], text: "Just to tell you that your buddy this week is" + newclient.users_info(user: buddy[1]).user.name,  as_user: true)
-    newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[0], text: "Just to tell you that your buddy this week is" + newclient.users_info(user: buddy[1]).user.name,  as_user: true)
-
+    newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Hi " + newclient.users_info(user: buddy[0]).user.name + "!",  as_user: true)
+    newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: pairingmessages["greetings"].sample,  as_user: true)
+    newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: "Just to tell you that your buddy this week is" + newclient.users_info(user: buddy[1]).user.name,  as_user: true)
+    buddymood = users.find( { id: buddy[1] } ).first["feedback"].last["status"].to_i
+    if buddymood < 4
+      newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: pairingmessages["feelingbad"].sample,  as_user: true)
+    elsif buddymood > 8
+      if rand > 0.3
+        newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: pairingmessages["feelinggreat"].sample,  as_user: true)
+      end
+    end
+    if rand > 0.4
+      newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: pairingmessages["besttimes"].sample,  as_user: true)
+    end
+    newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: "#botspam", text: pairingmessages["goodbyepm"].sample,  as_user: true)
   end
+end
 
-  # buddies.each do |buddy|
-  #   remindertext1 = "Remember to call your buddy "
-  #   remindertext2 = " today. :dancers: "
-  #   newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[0], text: remindertext1 + newclient.users_info(user: buddy[1]).user.name + remindertext2,  as_user: true)
-  #   newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[1], text: remindertext1 + newclient.users_info(user: buddy[0]).user.name  + remindertext2,  as_user: true)
-  # end
+
+def surprise
+
+  Slack.configure do |config|
+    config.token = ENV['SLACK_API_TOKEN']
+  end
+    # get buddies
+  clientyannis = Mongo::Client.new('mongodb://heroku_9lfp2dtb:5ri9s2lgba2om7t6hl2v3uhp01@ds033734.mlab.com:33734/heroku_9lfp2dtb')
+  database = clientyannis.database
+  pairingdb = database.collection('pairing')
+  buddies = pairingdb.find.first[:thisweek]
+
+    # get messages
+  file = File.read('pairingmessages.json')
+  pairingmessages = JSON.parse(file)
+
+  newclient = Slack::Web::Client.new
+
+  buddies.each do |buddy|
+    if rand < 0.2
+      newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[0], text: "Hi " + newclient.users_info(user: buddy[0]).user.name + "!",  as_user: true)
+      newclient.chat_postMessage(token: ENV["SLACK_API_TOKEN"], channel: buddy[0], text: pairingmessages["randomlove"].sample,  as_user: true)
+    end
+  end
 end
